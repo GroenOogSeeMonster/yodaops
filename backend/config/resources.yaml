@@ -1,0 +1,84 @@
+resources:
+  - id: ec2-web-server-001
+    name: Web Server Production
+    type: ec2
+    region: us-east-1
+    config:
+      instance_type: t3.medium
+      instance_id: i-1234567890abcdef0
+      vpc_id: vpc-12345678
+      subnet_id: subnet-12345678
+      security_groups:
+        - sg-12345678
+      tags:
+        Environment: production
+        Application: web-server
+        Team: devops
+
+  - id: rds-database-001
+    name: Production Database
+    type: rds
+    region: us-east-1
+    config:
+      instance_class: db.t3.micro
+      engine: mysql
+      engine_version: 8.0.28
+      allocated_storage: 20
+      storage_type: gp2
+      multi_az: false
+      backup_retention_period: 7
+      tags:
+        Environment: production
+        Application: database
+        Team: devops
+
+  - id: eks-cluster-001
+    name: Production EKS Cluster
+    type: eks
+    region: us-east-1
+    config:
+      cluster_name: yodaops-prod-cluster
+      kubernetes_version: 1.27
+      node_groups:
+        - name: main-node-group
+          instance_types: [t3.medium]
+          min_size: 2
+          max_size: 5
+          desired_size: 3
+      tags:
+        Environment: production
+        Application: kubernetes
+        Team: devops
+
+  - id: ec2-api-server-002
+    name: API Server Staging
+    type: ec2
+    region: us-west-2
+    config:
+      instance_type: t3.small
+      instance_id: i-0987654321fedcba0
+      vpc_id: vpc-87654321
+      subnet_id: subnet-87654321
+      security_groups:
+        - sg-87654321
+      tags:
+        Environment: staging
+        Application: api-server
+        Team: devops
+
+  - id: rds-staging-db-002
+    name: Staging Database
+    type: rds
+    region: us-west-2
+    config:
+      instance_class: db.t3.micro
+      engine: postgresql
+      engine_version: 14.5
+      allocated_storage: 10
+      storage_type: gp2
+      multi_az: false
+      backup_retention_period: 3
+      tags:
+        Environment: staging
+        Application: database
+        Team: devops 
